@@ -1,0 +1,40 @@
+# JavaScript / Node
+node_modules/
+dist/
+*.tsbuildinfo
+.npm
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.Python
+*.dist-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+
+# Build artifacts
+*.log

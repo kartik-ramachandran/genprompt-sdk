@@ -1,0 +1,30 @@
+{
+  "name": "@genprompt/sdk",
+  "version": "1.0.0",
+  "description": "Official JavaScript/TypeScript SDK for GenPrompt — fetch and cache AI prompts in any Node.js or browser app.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest"
+  },
+  "keywords": ["genprompt", "ai", "prompts", "llm", "sdk"],
+  "license": "MIT",
+  "homepage": "https://gen-prompt.me",
+  "repository": { "type": "git", "url": "https://github.com/genprompt/sdk-js" },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}

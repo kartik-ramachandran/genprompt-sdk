@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "genprompt"
+version = "1.0.0"
+description = "Official Python SDK for GenPrompt — fetch and cache AI prompts in any Python app."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = ["httpx>=0.27"]
+keywords = ["genprompt", "ai", "prompts", "llm", "sdk"]
+
+[project.urls]
+Homepage = "https://gen-prompt.me"
+Repository = "https://github.com/genprompt/sdk-python"
