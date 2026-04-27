@@ -1,17 +1,17 @@
-# @genprompt/sdk — JavaScript / TypeScript SDK
+# genprompt-sdk — JavaScript / TypeScript SDK
 
 Official SDK for [GenPrompt](https://gen-prompt.me) with **built-in prompt caching** (stale-while-revalidate).
 
 ## Install
 
 ```bash
-npm install @genprompt/sdk
+npm install genprompt-sdk
 ```
 
 ## Quick start
 
 ```ts
-import { GenPromptClient } from '@genprompt/sdk'
+import { GenPromptClient } from 'genprompt-sdk'
 
 const gp = new GenPromptClient({
   apiKey: 'pk_live_...',        // Settings → API Keys on gen-prompt.me
@@ -86,7 +86,7 @@ Executes a prompt chain.
 ```ts
 import { ChatOpenAI } from '@langchain/openai'
 import { ChatPromptTemplate } from '@langchain/core/prompts'
-import { GenPromptClient } from '@genprompt/sdk'
+import { GenPromptClient } from 'genprompt-sdk'
 
 const gp = new GenPromptClient({ apiKey: process.env.GENPROMPT_API_KEY! })
 const { content } = await gp.prompts.get('my-prompt-id')

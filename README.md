@@ -6,7 +6,7 @@ Official JavaScript/TypeScript and Python SDKs for [GenPrompt](https://gen-promp
 
 | Package | Language | Install |
 |---------|----------|---------|
-| [`@genprompt/sdk`](./javascript) | JavaScript / TypeScript | `npm install @genprompt/sdk` |
+| [`genprompt-sdk`](./javascript) | JavaScript / TypeScript | `npm install genprompt-sdk` |
 | [`genprompt`](./python) | Python | `pip install genprompt` |
 
 ## Quick Start
@@ -14,7 +14,7 @@ Official JavaScript/TypeScript and Python SDKs for [GenPrompt](https://gen-promp
 ### JavaScript / TypeScript
 
 ```typescript
-import { GenPromptClient } from '@genprompt/sdk'
+import { GenPromptClient } from 'genprompt-sdk'
 
 const client = new GenPromptClient({ apiKey: 'pk_live_...' })
 
