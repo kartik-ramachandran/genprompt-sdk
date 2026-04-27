@@ -10,7 +10,7 @@ const DEFAULT_CACHE_TTL = 60
 export class GenPromptClient {
   private readonly baseUrl: string
   private readonly headers: Record<string, string>
-  private readonly defaultCacheTtl: number
+  /** @internal */ readonly defaultCacheTtl: number
   private cache = new PromptCache()
 
   readonly prompts: PromptResource
@@ -76,12 +76,12 @@ class PromptResource {
    * using the same slash-naming convention as in GenPrompt.
    */
   async list(options: FetchOptions & { folder?: string } = {}): Promise<Prompt[]> {
-    const ttl = options.cacheTtl ?? (this.client as any).defaultCacheTtl
+    const ttl = options.cacheTtl ?? this.client.defaultCacheTtl
     const folder = options.folder ?? ''
     const key = `prompts:list:${folder}`
-    const all = await (this.client as any)._cachedGet<Prompt[]>(
+    const all = await this.client._cachedGet<Prompt[]>(
       key,
-      () => (this.client as any)._fetch<Prompt[]>('/prompts'),
+      () => this.client._fetch<Prompt[]>('/prompts'),
       ttl,
     )
     return folder ? all.filter(p => p.name.startsWith(folder)) : all
@@ -93,10 +93,10 @@ class PromptResource {
    * const prompt = await gp.prompts.get('abc-123', { cacheTtl: 300 })
    */
   async get(id: string, options: FetchOptions = {}): Promise<Prompt> {
-    const ttl = options.cacheTtl ?? (this.client as any).defaultCacheTtl
-    return (this.client as any)._cachedGet<Prompt>(
+    const ttl = options.cacheTtl ?? this.client.defaultCacheTtl
+    return this.client._cachedGet<Prompt>(
       `prompts:${id}`,
-      () => (this.client as any)._fetch<Prompt>(`/prompts/${id}`),
+      () => this.client._fetch<Prompt>(`/prompts/${id}`),
       ttl,
     )
   }
@@ -106,7 +106,7 @@ class PromptResource {
    * Results are not cached (every call produces a new prompt).
    */
   async generate(intent: string, options: GenerateOptions = {}): Promise<GeneratedPrompt> {
-    return (this.client as any)._fetch<GeneratedPrompt>('/prompts/generate', {
+    return this.client._fetch<GeneratedPrompt>('/prompts/generate', {
       method: 'POST',
       body: JSON.stringify({
         intent,
@@ -120,7 +120,7 @@ class PromptResource {
    * Run a prompt through AI and return the response.
    */
   async test(promptContent: string, options: TestOptions = {}): Promise<unknown> {
-    return (this.client as any)._fetch<unknown>('/prompts/test', {
+    return this.client._fetch<unknown>('/prompts/test', {
       method: 'POST',
       body: JSON.stringify({ promptContent, userInput: options.userInput ?? '' }),
     })
@@ -131,10 +131,10 @@ class PersonaResource {
   constructor(private client: GenPromptClient) {}
 
   async list(options: FetchOptions = {}): Promise<Persona[]> {
-    const ttl = options.cacheTtl ?? (this.client as any).defaultCacheTtl
-    return (this.client as any)._cachedGet<Persona[]>(
+    const ttl = options.cacheTtl ?? this.client.defaultCacheTtl
+    return this.client._cachedGet<Persona[]>(
       'personas:list',
-      () => (this.client as any)._fetch<Persona[]>('/personas'),
+      () => this.client._fetch<Persona[]>('/personas'),
       ttl,
     )
   }
@@ -144,7 +144,7 @@ class ChainResource {
   constructor(private client: GenPromptClient) {}
 
   async execute(chainId: number, input: string): Promise<ChainResult> {
-    return (this.client as any)._fetch<ChainResult>(`/chains/${chainId}/execute`, {
+    return this.client._fetch<ChainResult>(`/chains/${chainId}/execute`, {
       method: 'POST',
       body: JSON.stringify({ input }),
     })
